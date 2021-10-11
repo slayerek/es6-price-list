@@ -1,0 +1,59 @@
+.items {
+    
+    @include reset-list;
+    
+    li {
+        margin-bottom:1%;
+    }
+
+    li input {  
+        border:1px solid #ced4da;
+        border-radius:5px;
+        padding:2px 0 2px 5px;
+    }
+
+    li .remove-item { 
+        cursor:pointer;
+        color:red;
+        font-weight:bold;
+        opacity: 0;
+        transition: 0.3s;
+    }
+
+    li:hover .remove-item { 
+        opacity:1  
+    }
+
+    li .edit-item-name { 
+        width:50%
+    }
+
+    li .edit-item-price { 
+        width:30%
+    }
+
+    li .accept-edit-item {
+        display:none;
+        transition: 0.3s;
+        cursor:pointer;
+        position:relative;
+    }
+
+    li .accept-edit-item:after {
+        content: "";
+        position: absolute;
+        right: -15px;
+        top: 5px;
+        width: 8px;
+        height: 13px;
+        border: solid red;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(
+            45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(
+            45deg); 
+    }
+
+}
+
