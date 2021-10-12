@@ -4,47 +4,42 @@ export default class Validation {
         this.validator = validator;
     }
     
-    
-    
     checkForm(Form) {
         
         let formValid = true;
+        const arr = [
+            { 'alphanumeric' : this.validator.isAlphanumeric },
+            { 'float' : this.validator.isFloat }
+        ];
         
-        for (let input of Array.from(Form.elements)){
+        for (let input of Form.elements){
             if (input['type'] == 'text') {
                 const validAttr = input.getAttribute('data-valid');
                 
-                if('alphanumeric' == validAttr){
-                    if(!this.validator.isAlphanumeric(input.value)){
-                        this.highlight(input);
-                        formValid = false;
-                        break;
-                    }else{
-                        this.unhighlight(input);
-                    } 
-                }else if('float' == validAttr){
-                    if(!this.validator.isAlphanumeric(input.value)){
-                        this.highlight(input);
-                        formValid = false;
-                        break;
-                    }else{
-                        this.unhighlight(input);
+                for(let elem of arr){
+                    if(elem[validAttr] !== undefined){
+                        if(!elem[validAttr](input.value)){
+                            this.highlight(input,'red-warning');
+                            formValid = false;
+                            break;
+                        }else{
+                            this.unhighlight(input,'red-warning');
+                        }
                     }
-                }      
-                        
-            }
+                }
+            }    
         }
        
         return formValid;
         
     }
     
-    highlight(element){
-       element.classList.add('red-warning');
+    highlight(element,className){
+       element.classList.add(className);
     }
     
-    unhighlight(element){
-        element.classList.remove('red-warning');
+    unhighlight(element,className){
+        element.classList.remove(className);
         return false;
     }
     
